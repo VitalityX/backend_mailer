@@ -6,11 +6,9 @@ import { ConfigModule } from '@nestjs/config';
   imports: [ConfigModule.forRoot()],
   controllers: [AppController],
   providers: [AppService, {
-    provide: "MAILER",
-    
-    useFactory(...args) {
+    provide: "MAILER",    
+    useFactory() {
       const key = process.env.SENDGRID_KEY;
-      console.log(key);
       if (!key) throw new Error("No Sendgrid Key provided")
       const Mailer = require('@sendgrid/mail')
       Mailer.setApiKey(key);

@@ -2,17 +2,12 @@ import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { templateIds } from './template-ids';
 import Mailer from '@sendgrid/mail'
 @Injectable()
-export class AppService implements OnModuleInit {
+export class AppService  {
 
   
   constructor(@Inject("MAILER") readonly mailer) {}
 
-  onModuleInit() {
-    console.log("sending mail in 15 seconds")
-    setTimeout(() => {
-      this.sendVerificationEmail()
-    }, 15000);
-  }
+
 
   sendVerificationEmail() {
     const mail = this.createMail("admin@vitalitycheats.net",templateIds.VERIFY_EMAIL, {
