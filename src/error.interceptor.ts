@@ -1,6 +1,7 @@
 import { ArgumentsHost, Catch } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 
-@Catch()
+@Catch(Error, RpcException)
 export class ExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToRpc();
@@ -10,6 +11,7 @@ export class ExceptionFilter implements ExceptionFilter {
   }
 
     private sendToDiscord({data, exception}: {data: any, exception: any}) {
+      console.log("sending report to discord")
         const payload = {
             content: null,
             embeds: [

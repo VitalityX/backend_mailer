@@ -1,3 +1,3 @@
 export const templateIds = {
-    VERIFY_EMAIL: 'd-0b0b2b0b0b0b0b0b0b0b0b0b0b0b0b0b', // V1 - Verify Email
+    VERIFY_EMAIL: 'd-247f3895ea034010b9ed5b64f7e37a42', // V1 - Verify Email
 }

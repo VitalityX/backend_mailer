@@ -1,22 +1,28 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { templateIds } from './template-ids';
 import Mailer from '@sendgrid/mail'
 @Injectable()
-export class AppService implements OnModuleInit {
+export class AppService  {
 
   
-  constructor(readonly mailer = Mailer) {}
+  constructor(@Inject("MAILER") readonly mailer) {}
 
-  async onModuleInit() {
-    this.mailer.setApiKey(process.env.SENDGRID_API_KEY);
-  }
+
 
   sendVerificationEmail() {
-    const mail = this.createMail("email@mail.de",templateIds.VERIFY_EMAIL, {
-      username: "",
-      code: ""
+    const mail = this.createMail("admin@vitalitycheats.net",templateIds.VERIFY_EMAIL, {
+      username: "Test",
+      code: "123456"
     })
-    this.mailer.send(mail)
+    try {
+      this.mailer.send(mail).then((res) => {
+        console.log("success", res)
+      })
+      
+    } catch(e) {
+      console.log(e)
+    }
+    
   }
 
   sendWelcomeEmail() {
