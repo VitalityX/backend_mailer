@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { templateIds } from './template-ids';
 import Mailer from '@sendgrid/mail'
 @Injectable()

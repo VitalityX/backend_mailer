@@ -1,6 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { AppService } from './app.service';
-import { EventPattern } from '@nestjs/microservices';
+import { EventPattern, RpcException } from '@nestjs/microservices';
 
 @Controller()
 export class AppController {
@@ -8,6 +8,9 @@ export class AppController {
 
   @EventPattern("sendVerificationEmail")
   sendVerificationEmail(payload: any) {
-
+    if (!payload) {
+      throw new RpcException("No payload provided")
+    }
+    this.appService.sendNewsletter()
   }
 }

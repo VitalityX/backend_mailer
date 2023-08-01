@@ -23,4 +23,6 @@ async function bootstrap() {
   app.useGlobalFilters(new ExceptionFilter())
   await app.listen();
 }
-bootstrap();
+bootstrap().then(() => {
+  console.log("Mailer is listening")
+});
