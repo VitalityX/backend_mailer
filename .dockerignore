@@ -1,0 +1,21 @@
+# Ignoriere allgemeine Dateien und Verzeichnisse
+node_modules
+npm-debug.log
+yarn-error.log
+.env
+.env.*
+*.log
+
+# Ignoriere spezifische Dateien und Verzeichnisse für NestJS
+/dist
+/.git
+/.vscode
+/.idea
+/coverage
+/test
+/tmp
+
+# Ignoriere Dateien und Verzeichnisse für das Build-Verzeichnis
+/build
+/Dockerfile
+.dockerignore
