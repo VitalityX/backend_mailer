@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { ExceptionFilter } from './error.interceptor';
 import { Partitioners } from 'kafkajs';
 
 async function bootstrap() {
@@ -25,7 +24,6 @@ async function bootstrap() {
     },
   );
   
-  app.useGlobalFilters(new ExceptionFilter())
   await app.listen();
 }
 bootstrap().then(() => {
