@@ -1,26 +1,26 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { templateIds } from './template-ids';
 import Mailer from '@sendgrid/mail'
+import { MailerPayloads } from './dto/MailerPayloads.dto';
+import { RpcException } from '@nestjs/microservices';
 @Injectable()
 export class AppService  {
 
-  
+  private readonly logger = new Logger("MAILER_SERVICE")
   constructor(@Inject("MAILER") readonly mailer) {}
 
-
-
-  sendVerificationEmail() {
-    const mail = this.createMail("admin@vitalitycheats.net",templateIds.VERIFY_EMAIL, {
-      username: "Test",
-      code: "123456"
+  sendVerificationEmail(payload: MailerPayloads.EmailVerificationPayload) {
+    const mail = this.createMail(payload.email, templateIds.VERIFY_EMAIL, {
+      username: payload.username,
+      code: payload.code.toString()
     })
     try {
       this.mailer.send(mail).then((res) => {
-        console.log("success", res)
+        this.logger.log(`Sent Verification Email to ${payload.email}  (${payload.username})`)
       })
       
     } catch(e) {
-      console.log(e)
+      this.logger.error("Could not send Verification Email", e);
     }
     
   }
